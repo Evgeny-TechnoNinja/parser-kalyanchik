@@ -1,2 +1,4 @@
 if __name__ == '__main__':
-    pass
+    from loader import BOT as bot
+    from handlers import bot_start
+    bot.polling()

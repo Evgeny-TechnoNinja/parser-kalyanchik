@@ -1,5 +1,5 @@
 from utils.write_logs import logs_init  # noqa
-from utils import get_proxies, get_suitable_proxy  # noqa
+from utils import get_proxies, get_suitable_proxy, get_user_agents  # noqa
 from settings_ui import DIALOGUE  # noqa
 
 
@@ -19,6 +19,6 @@ def parser():
     if not isinstance(PROXY, dict):
         status["msg"] = PROXY + DIALOGUE["parsing_not_possible"]
         return status
-    else:
-        status["success"] = True
-        return status
+    USER_AGENTS = get_user_agents(10)
+    status["success"] = True
+    return status

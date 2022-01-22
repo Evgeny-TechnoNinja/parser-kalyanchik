@@ -14,3 +14,8 @@ PROXIES_TEST_OPTIONS = {
     "multiplication_attempts": 2,
     "url": "http://icanhazip.com/"
 }
+
+USER_AGENT_DATA = {
+    "default": "Mozilla/5.0 (Linux x86_64; rv:95.0) Gecko/20100101 Firefox/95.0",
+    "url": "https://seolik.ru/user-agents-list"
+}

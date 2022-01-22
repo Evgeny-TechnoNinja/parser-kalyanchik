@@ -9,3 +9,8 @@ HTTP_ERROR_FILE = "requests_error.log"
 PROXIES = os.getenv("PROXIES").replace(" ", "").split(",")
 PROXY_LOGIN = os.getenv("PROXY_LOGIN")
 PROXY_PASSWORD = os.getenv("PROXY_PASSWORD")
+PROXIES_TEST_OPTIONS = {
+    "timeout": 3,
+    "multiplication_attempts": 2,
+    "url": "http://icanhazip.com/"
+}

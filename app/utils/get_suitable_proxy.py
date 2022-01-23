@@ -1,4 +1,4 @@
-from typing import Union, Dict
+from typing import Union, Dict, Optional
 from config import PROXIES_TEST_OPTIONS  # noqa
 from random import choice
 from settings_ui import DIALOGUE  # noqa
@@ -31,7 +31,7 @@ def get_suitable_proxy(proxies) -> Union[str, Dict[str, str]]:
 
     while True:
         if not check():
-            random_proxy: str = choice(proxies)
+            random_proxy = choice(proxies)
             blank_proxies['http'] = 'http://{}'.format(random_proxy)
             blank_proxies['https'] = 'http://{}'.format(random_proxy)
             connection_attempts -= 1

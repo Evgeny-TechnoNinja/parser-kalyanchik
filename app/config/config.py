@@ -1,15 +1,16 @@
 import os
 from dotenv import load_dotenv
+from typing import Dict, Any
 
 load_dotenv()
 TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN")
 BOT_ADMIN = os.getenv("BOT_ADMIN")
 # The file for logging requests errors must have the extension .log
 HTTP_ERROR_FILE = "requests_error.log"
-PROXIES = os.getenv("PROXIES").replace(" ", "").split(",")
+PROXIES = os.getenv("PROXIES").replace(" ", "").split(",")  # type: ignore
 PROXY_LOGIN = os.getenv("PROXY_LOGIN")
 PROXY_PASSWORD = os.getenv("PROXY_PASSWORD")
-PROXIES_TEST_OPTIONS = {
+PROXIES_TEST_OPTIONS: Dict[str, Any] = {
     "timeout": 3,
     "multiplication_attempts": 2,
     "url": "http://icanhazip.com/"

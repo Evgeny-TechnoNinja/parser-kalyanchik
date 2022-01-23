@@ -1,5 +1,5 @@
-import telebot
-from telebot.types import InlineKeyboardMarkup
+import telebot  # type: ignore
+from telebot.types import InlineKeyboardMarkup  # type: ignore
 
 
 def create_inline_keyboard(data: dict) -> InlineKeyboardMarkup:

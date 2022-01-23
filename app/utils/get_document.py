@@ -23,3 +23,4 @@ def get_document(url: str, parameter: dict = None, headers: dict = None, proxy: 
             write_logs(str(error))
     except requests.exceptions.ProxyError as error:
         write_logs(str(error))
+    return None

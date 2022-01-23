@@ -15,8 +15,12 @@ PROXIES_TEST_OPTIONS: Dict[str, Any] = {
     "multiplication_attempts": 2,
     "url": "http://icanhazip.com/"
 }
-
-USER_AGENT_DATA = {
+USER_AGENT_DATA:  Dict[str, Any] = {
     "default": "Mozilla/5.0 (Linux x86_64; rv:95.0) Gecko/20100101 Firefox/95.0",
-    "url": "https://seolik.ru/user-agents-list"
+    "url": "https://seolik.ru/user-agents-list",
+    "regex": {
+        "user_agent": "Mozilla/5.0"
+    }
 }
+MARKUP_ANALYZER = "lxml"
+DONOR_URL = "https://opt.kalyanchik.ua/"

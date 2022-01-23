@@ -1,9 +1,9 @@
-from typing import Union
+from typing import Optional
 from utils.write_logs import write_logs  # noqa
 import requests
 
 
-def get_document(url: str, parameter: dict = None, headers: dict = None, proxy: dict = None) -> Union[str, None]:
+def get_document(url: str, parameter: dict = None, headers: dict = None, proxy: dict = None) -> Optional[str]:
     """
     Performs Get requests to the desired target.
     If the request failed, it will write the failure to the logs

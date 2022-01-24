@@ -24,3 +24,5 @@ USER_AGENT_DATA:  Dict[str, Any] = {
 }
 MARKUP_ANALYZER = "lxml"
 DONOR_URL = "https://opt.kalyanchik.ua/"
+SLEEP_PARAMETERS = ((1, 3), (2, 5))
+NAVIGATION_NAME = "page"

@@ -1,7 +1,7 @@
 from typing import Callable
 from utils.write_logs import logs_init  # noqa
-from utils import get_proxies, get_suitable_proxy, get_user_agents, get_category_name, get_pagination_data # noqa
-from utils import get_links_products  # noqa
+from utils import get_proxies, get_suitable_proxy, get_user_agents, get_category_name, get_pagination_data  # noqa
+from utils import get_links_products, weed_out_links, get_goods  # noqa
 from settings_ui import DIALOGUE  # noqa
 from random import choice
 from config import DONOR_URL  # noqa
@@ -41,7 +41,19 @@ def parser():
     pagination_data = multiprocessing_run(get_pagination_data, AMOUNT_CATEGORY, iterable)
     iterable = [*zip(selected_user_agents, selected_proxies, pagination_data)]
     links_products = multiprocessing_run(get_links_products, AMOUNT_CATEGORY, iterable)
-
+    links_products[:] = weed_out_links(links_products)
+    # ===
+    # pickle.dump(links_products, open("links", "wb"))
+    # links = pickle.load(open("links", "rb"))
+    # ===
+    iterable = [*zip(selected_user_agents, selected_proxies, links_products)]
+    goods = multiprocessing_run(get_goods, AMOUNT_CATEGORY, iterable)
+    # # == for dev
+    # pickle.dump(goods, open("goods", "wb"))
+    # goods = pickle.load(open("goods", "rb"))
+    # for i in goods:
+    #     print(i["category"])
+    # ===
     # == temp
     status["success"] = True
     return status

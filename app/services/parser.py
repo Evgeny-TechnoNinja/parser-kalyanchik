@@ -7,6 +7,7 @@ from random import choice
 from config import DONOR_URL  # noqa
 import multiprocessing
 import pickle
+from pprint import pprint
 
 
 def parser():
@@ -31,7 +32,7 @@ def parser():
     if not isinstance(PROXY, dict):
         status["msg"] = PROXY + DIALOGUE["parsing_not_possible"]
         return status
-    USER_AGENTS = get_user_agents(10)
+    USER_AGENTS = get_user_agents(10, PROXY)
     category_names = get_category_name(DONOR_URL, PROXY, choice(USER_AGENTS))
     AMOUNT_CATEGORY = len(category_names)
     selected_user_agents = [choice(USER_AGENTS) for _ in range(AMOUNT_CATEGORY)]
@@ -48,6 +49,7 @@ def parser():
     # ===
     iterable = [*zip(selected_user_agents, selected_proxies, links_products)]
     goods = multiprocessing_run(get_goods, AMOUNT_CATEGORY, iterable)
+    pprint(goods)
     # # == for dev
     # pickle.dump(goods, open("goods", "wb"))
     # goods = pickle.load(open("goods", "rb"))

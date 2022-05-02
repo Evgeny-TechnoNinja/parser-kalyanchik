@@ -14,5 +14,5 @@ def write_logs(txt) -> None:
     Writes the text of the error to the file
     :param txt: error text
     """
-    print("log: ", txt)
+    print("[!]log: ", txt)
     logging.warning(txt)

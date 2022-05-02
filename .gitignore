@@ -6,3 +6,6 @@ venv/
 .cache
 .env
 *.log
+.mypy_cache/
+goods
+links

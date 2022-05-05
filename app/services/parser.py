@@ -43,13 +43,13 @@ def parser():
     links_products = multiprocessing_run(get_links_products, AMOUNT_CATEGORY, iterable)
     links_products[:] = weed_out_links(links_products)
     # === for dev
-    # pickle.dump(links_products, open("links", "wb"))
+    pickle.dump(links_products, open("links", "wb"))
     # links = pickle.load(open("links", "rb"))
     # ===
     iterable = [*zip(selected_user_agents, selected_proxies, links_products)]  # links_products
     goods = multiprocessing_run(get_goods, AMOUNT_CATEGORY, iterable)
     # # == for dev
-    # pickle.dump(goods, open("goods", "wb"))
+    pickle.dump(goods, open("goods", "wb"))
     # goods = pickle.load(open("goods", "rb"))
     # ===
     if goods:

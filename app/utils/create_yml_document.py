@@ -18,7 +18,7 @@ def create_yml_document(data: list):
     }
     result = {
         "total_products": 0,
-        "file_name": "",
+        "filename": "",
         "msg": ""
     }
     goods: list = data
@@ -87,5 +87,5 @@ def create_yml_document(data: list):
         for line in indent(doc.getvalue()):
             f.write(line)
         result["msg"] = DIALOGUE["ready_yml"]
-    result["file_name"] = FILE_TARGET
+    result["filename"] = FILE_TARGET
     return result

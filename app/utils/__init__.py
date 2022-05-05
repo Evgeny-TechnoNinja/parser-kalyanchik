@@ -8,3 +8,5 @@ from .get_pagination_data import *
 from .get_links_products import *
 from .weed_out_links import *
 from .get_goods import *
+from .create_yml_document import *
+from .transformation_name import *

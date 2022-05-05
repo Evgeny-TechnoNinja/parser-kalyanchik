@@ -7,7 +7,6 @@ from random import choice
 from config import DONOR_URL  # noqa
 import multiprocessing
 import pickle
-from pprint import pprint
 
 
 def parser():
@@ -37,25 +36,25 @@ def parser():
     AMOUNT_CATEGORY = len(category_names)
     selected_user_agents = [choice(USER_AGENTS) for _ in range(AMOUNT_CATEGORY)]
     selected_proxies = [get_suitable_proxy(PROXIES_DATA) for _ in range(AMOUNT_CATEGORY)]
-    target_url = [DONOR_URL for _ in range(len(DONOR_URL))]
-    iterable = [*zip(selected_user_agents, selected_proxies, category_names, target_url)]
-    pagination_data = multiprocessing_run(get_pagination_data, AMOUNT_CATEGORY, iterable)
-    iterable = [*zip(selected_user_agents, selected_proxies, pagination_data)]
-    links_products = multiprocessing_run(get_links_products, AMOUNT_CATEGORY, iterable)
-    links_products[:] = weed_out_links(links_products)
-    # ===
+    # target_url = [DONOR_URL for _ in range(len(DONOR_URL))]
+    # iterable = [*zip(selected_user_agents, selected_proxies, category_names, target_url)]
+    # pagination_data = multiprocessing_run(get_pagination_data, AMOUNT_CATEGORY, iterable)
+    # iterable = [*zip(selected_user_agents, selected_proxies, pagination_data)]
+    # links_products = multiprocessing_run(get_links_products, AMOUNT_CATEGORY, iterable)
+    # links_products[:] = weed_out_links(links_products)
+    # === for dev
     # pickle.dump(links_products, open("links", "wb"))
     # links = pickle.load(open("links", "rb"))
     # ===
-    iterable = [*zip(selected_user_agents, selected_proxies, links_products)]
-    goods = multiprocessing_run(get_goods, AMOUNT_CATEGORY, iterable)
-    pprint(goods)
+    # iterable = [*zip(selected_user_agents, selected_proxies, links)]  # links_products
+    # goods = multiprocessing_run(get_goods, AMOUNT_CATEGORY, iterable)
     # # == for dev
     # pickle.dump(goods, open("goods", "wb"))
-    # goods = pickle.load(open("goods", "rb"))
-    # for i in goods:
-    #     print(i["category"])
+    goods = pickle.load(open("goods", "rb"))
     # ===
-    # == temp
-    status["success"] = True
-    return status
+    if goods:
+        status["data"], status["msg"], status["success"] = goods, DIALOGUE["data_received"], True
+        return status
+    else:
+        status["msg"] = DIALOGUE["data_not_received"]
+        return status

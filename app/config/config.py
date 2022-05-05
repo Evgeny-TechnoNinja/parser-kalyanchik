@@ -26,3 +26,12 @@ MARKUP_ANALYZER = "lxml"
 DONOR_URL = "https://opt.kalyanchik.ua/"
 SLEEP_PARAMETERS = ((1, 3), (2, 5))
 NAVIGATION_NAME = "page"
+XML_VERSION = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
+DATA_HEADER_YML = {
+    "name": "new-kalyanchik",
+    "company": "new-kalyanchik",
+    "url": "http://new-kalyanchik.ua",
+    "platform": "demohoroshop"
+}
+DATA_CURRENCY_YML = ("UAH", "1")
+FILE_TARGET = os.getenv("FILE_TARGET")

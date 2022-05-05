@@ -31,9 +31,9 @@ def get_goods(data: list) -> list:
     }
     for value in links.values():
         blank_category: Dict[str, Any] = {
-            "category":  {
-                "category_name": "",
-                "category_id": 0  # this is a stub for the identifier, it will be made when the document is written
+            "category": {
+                "category_name": list(links.keys())[0],
+                "category_id": 1  # this is a stub for the identifier, it will be made when the document is written
             },
             "goods": []
         }
@@ -57,14 +57,6 @@ def get_goods(data: list) -> list:
                 soup = BeautifulSoup(document, MARKUP_ANALYZER)
             except Exception as error:  # noqa
                 continue
-            # TODO: Logical change
-            if not blank_category["category"]["category_name"]:
-                breadcrumbs = soup.find("ul", {"class": "breadcrumbs"})
-                elem_links = breadcrumbs.find_all("a")
-                title = elem_links[1].text
-                blank_category["category"]["category_name"] = title
-                print(blank_category["category"]["category_name"])
-            # print(url)
             blank_goods["product"]["url"] = url
             title = soup.find("h1", {"class": "one-card__title"}).text
             blank_goods["product"]["id"] = title.split("-")[-1].strip()
@@ -106,7 +98,6 @@ def get_goods(data: list) -> list:
                         else:
                             new_content.append(content)
                         temporary = "".join(new_content).split(assist["separator"])
-                        # print("temporary:", temporary)
                         try:
                             blank_goods["product"]["param"].append(
                                 {temporary[0]: temporary[1].strip()})
@@ -135,5 +126,4 @@ def get_goods(data: list) -> list:
                 blank_goods["product"]["category"] = blank_category["category"]["category_name"]
             blank_category["goods"].append(blank_goods)
         result.append(blank_category)
-        print("blank_category add", blank_category)
     return result

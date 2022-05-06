@@ -42,21 +42,21 @@ def parser() -> dict:
     AMOUNT_POOL = len(category_names)
     selected_user_agents = [choice(USER_AGENTS) for _ in range(AMOUNT_POOL)]
     selected_proxies = [get_suitable_proxy(PROXIES_DATA) for _ in range(AMOUNT_POOL)]
-    target_url = [DONOR_URL for _ in range(len(DONOR_URL))]
-    iterable: list = [*zip(selected_user_agents, selected_proxies, category_names, target_url)]
-    pagination_data = multiprocessing_run(get_pagination_data, AMOUNT_POOL, iterable)
-    iterable = [*zip(selected_user_agents, selected_proxies, pagination_data)]
-    links_products = multiprocessing_run(get_links_products, AMOUNT_POOL, iterable)
-    links_products[:] = weed_out_links(links_products)
+    # target_url = [DONOR_URL for _ in range(len(DONOR_URL))]
+    # iterable: list = [*zip(selected_user_agents, selected_proxies, category_names, target_url)]
+    # pagination_data = multiprocessing_run(get_pagination_data, AMOUNT_POOL, iterable)
+    # iterable = [*zip(selected_user_agents, selected_proxies, pagination_data)]
+    # links_products = multiprocessing_run(get_links_products, AMOUNT_POOL, iterable)
+    # links_products[:] = weed_out_links(links_products)
     # === for dev
-    pickle.dump(links_products, open("links", "wb"))
+    # pickle.dump(links_products, open("links", "wb"))
     # links = pickle.load(open("links", "rb"))
     # ===
-    iterable = [*zip(selected_user_agents, selected_proxies, links_products)]  # links_products
-    goods: List[Dict] = multiprocessing_run(get_goods, AMOUNT_POOL, iterable)
+    # iterable = [*zip(selected_user_agents, selected_proxies, links_products)]  # links_products
+    # goods: List[Dict] = multiprocessing_run(get_goods, AMOUNT_POOL, iterable)
     # == for dev
-    pickle.dump(goods, open("goods", "wb"))
-    # goods = pickle.load(open("goods", "rb"))
+    # pickle.dump(goods, open("goods", "wb"))
+    goods = pickle.load(open("goods", "rb"))
     # ===
     if goods:
         status["data"], status["msg"], status["success"] = goods, DIALOGUE["data_received"], True

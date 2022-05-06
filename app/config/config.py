@@ -37,3 +37,7 @@ DATA_CURRENCY_YML = ("UAH", "1")
 FILE_TARGET = os.getenv("FILE_TARGET")
 CONNECT_DATA = [os.getenv("HOST"), os.getenv("FTP_USER"), os.getenv("PASSWORD")]
 PATH_TARGET = os.getenv("PATH_TARGET")
+FOLDER_RESULT = "output"
+TIME_ZONE = {
+    "Kiev": "Europe/Kiev"
+}

@@ -1,8 +1,9 @@
 from loader import BOT as bot, KEYBOARD_MAIN_MENU as MAIN_MENU  # noqa
 from settings_ui import DIALOGUE, MENU_MAIN_ITEMS  # noqa
-from services import parser  # noqa
+from services.parser import parser  # noqa
+from services import get_file_server  # noqa
 from utils import create_yml_document, upload  # noqa
-from config import CONNECT_DATA, PATH_TARGET  # noqa
+from config import CONNECT_DATA, PATH_TARGET, FOLDER_RESULT, FILE_TARGET  # noqa
 from .set_time import set_time
 
 
@@ -37,6 +38,19 @@ def callback_inline_keyboard(call):
             bot.send_message(chat_id=call.message.chat.id, text=text)
             bot.register_next_step_handler(call.message, set_time)
         elif call.data == DOWNLOAD:
-            pass
+            status = get_file_server(CONNECT_DATA, FOLDER_RESULT, PATH_TARGET, FILE_TARGET)
+            if not status["success"]:
+                if status["msg"]:
+                    text = status["msg"]
+                    bot.send_message(chat_id=call.message.chat.id, text=text, reply_markup=MAIN_MENU)
+                else:
+                    text = DIALOGUE["download_fail"]
+                    bot.send_message(chat_id=call.message.chat.id, text=text, reply_markup=MAIN_MENU)
+            else:
+                text = status["msg"]
+                bot.send_message(chat_id=call.message.chat.id, text=text)
+                bot.send_document(call.message.chat.id, open(f"{FOLDER_RESULT}/{FILE_TARGET}", "rb"))
+                text = DIALOGUE["file_info"].format(status["change_time"])
+                bot.send_message(chat_id=call.message.chat.id, text=text, reply_markup=MAIN_MENU)
         elif call.data == LINK:
             pass

@@ -2,11 +2,10 @@ from config import USER_AGENT_DATA, MARKUP_ANALYZER  # noqa
 from .get_document import get_document  # noqa
 from bs4 import BeautifulSoup  # type: ignore
 from random import sample
-from typing import Union
 import re
 
 
-def get_user_agents(num_ua: int, proxy: dict) -> Union[list]:
+def get_user_agents(num_ua: int, proxy: dict) -> list:
     """
     Gets a document from the network, extracts lines with a user agent from it,
     then randomly extracts the specified number of user agents, in case it doesn’t,

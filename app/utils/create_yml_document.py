@@ -1,3 +1,4 @@
+from typing import Dict, Any
 from yattag import Doc, indent
 from config import XML_VERSION, DATA_HEADER_YML, DATA_CURRENCY_YML, FILE_TARGET  # noqa
 from settings_ui import DIALOGUE  # noqa
@@ -6,7 +7,7 @@ from .transformation_name import transformation_name
 
 
 @transformation_name
-def create_yml_document(data: list):
+def create_yml_document(data: list) -> dict:
     """
     Creates xml document in yml standard
     :param data: goods object
@@ -16,7 +17,7 @@ def create_yml_document(data: list):
     assist = {
         "characters": ["\n", "●", "⚜"]
     }
-    result = {
+    result: Dict[str, Any] = {
         "total_products": 0,
         "filename": "",
         "msg": ""
@@ -83,7 +84,7 @@ def create_yml_document(data: list):
                                             if current_value:
                                                 with tag("param", name=current_key):
                                                     text(current_value)
-    with open(FILE_TARGET, "w") as f:
+    with open(FILE_TARGET, "w") as f:  # type: ignore
         for line in indent(doc.getvalue()):
             f.write(line)
         result["msg"] = DIALOGUE["ready_yml"]

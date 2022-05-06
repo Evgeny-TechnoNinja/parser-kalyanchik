@@ -3,6 +3,7 @@ from settings_ui import DIALOGUE, MENU_MAIN_ITEMS  # noqa
 from services import parser  # noqa
 from utils import create_yml_document, upload  # noqa
 from config import CONNECT_DATA, PATH_TARGET  # noqa
+from .set_time import set_time
 
 
 @bot.callback_query_handler(func=lambda call: True)
@@ -32,7 +33,9 @@ def callback_inline_keyboard(call):
                         text = DIALOGUE["successful_upload"] + DIALOGUE["successful_parsing"]
                         bot.send_message(chat_id=call.message.chat.id, text=text, reply_markup=MAIN_MENU)
         elif call.data == AUTOPARSE:
-            pass
+            text = DIALOGUE["time_notifi"].format(DIALOGUE["time_example"])
+            bot.send_message(chat_id=call.message.chat.id, text=text)
+            bot.register_next_step_handler(call.message, set_time)
         elif call.data == DOWNLOAD:
             pass
         elif call.data == LINK:

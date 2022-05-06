@@ -1,4 +1,4 @@
-from typing import Union, Dict, Optional
+from typing import Union, Dict
 from config import PROXIES_TEST_OPTIONS  # noqa
 from random import choice
 from settings_ui import DIALOGUE  # noqa

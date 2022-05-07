@@ -24,6 +24,15 @@ def get_file_server(data_connect: list, folder: str, target: str, result_file: s
         "change_time": None,
         "msg": ""
     }
+
+    def get_modification_time(mod_time: str):
+        # Crutch :(
+        time: datetime = parser.parse(mod_time)
+        zone: datetime = (datetime.now(timezone(TIME_ZONE["Kiev"])))
+        num = int(str(zone).split("+")[-1].replace("0", "")[0])
+        return time + timedelta(hours=num)
+        # ===
+
     try:
         ftp_session = ftplib.FTP(*data_connect)
     except Exception as error:
@@ -33,12 +42,7 @@ def get_file_server(data_connect: list, folder: str, target: str, result_file: s
     server_files: list = ftp_session.nlst()
     if result_file in server_files:
         timestamp: str = ftp_session.voidcmd("MDTM %s" % result_file)[4:].strip()
-        # Crutch :(
-        time: datetime = parser.parse(timestamp)
-        zone: datetime = (datetime.now(timezone(TIME_ZONE["Kiev"])))
-        num = int(str(zone).split("+")[-1].replace("0", "")[0])
-        status["change_time"] = time + timedelta(hours=num)
-        # ===
+        status["change_time"] = get_modification_time(timestamp)
         output = "./" + folder
         if not os.path.exists(output):
             os.mkdir(output)

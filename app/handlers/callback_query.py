@@ -1,7 +1,7 @@
 from loader import BOT as bot, KEYBOARD_MAIN_MENU as MAIN_MENU  # noqa
 from settings_ui import DIALOGUE, MENU_MAIN_ITEMS  # noqa
 from services.parser import parser  # noqa
-from services import get_file_server  # noqa
+from services import get_file_server, get_link  # noqa
 from utils import create_yml_document, upload  # noqa
 from config import CONNECT_DATA, PATH_TARGET, FOLDER_RESULT, FILE_TARGET  # noqa
 from .set_time import set_time
@@ -53,4 +53,5 @@ def callback_inline_keyboard(call):
                 text = DIALOGUE["file_info"].format(status["change_time"])
                 bot.send_message(chat_id=call.message.chat.id, text=text, reply_markup=MAIN_MENU)
         elif call.data == LINK:
-            pass
+            text = DIALOGUE["hot_link"].format(get_link())
+            bot.send_message(chat_id=call.message.chat.id, text=text, reply_markup=MAIN_MENU)
